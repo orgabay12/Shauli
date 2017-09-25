@@ -232,6 +232,10 @@
     <Compile Include="Migrations\201709091506546_comment-text.Designer.cs">
       <DependentUpon>201709091506546_comment-text.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709251257398_fanModelChange.cs" />
+    <Compile Include="Migrations\201709251257398_fanModelChange.Designer.cs">
+      <DependentUpon>201709251257398_fanModelChange.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BlogContext.cs" />
@@ -362,6 +366,12 @@
     <EmbeddedResource Include="Migrations\201709091506546_comment-text.resx">
       <DependentUpon>201709091506546_comment-text.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709251257398_fanModelChange.resx">
+      <DependentUpon>201709251257398_fanModelChange.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

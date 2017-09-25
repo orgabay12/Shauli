@@ -15,9 +15,36 @@ namespace WebApplication1.Controllers
         private BlogContext db = new BlogContext();
 
         // GET: Fans
-        public ActionResult Index()
+        public ActionResult Index(string firstName, string lastName, string gender)
         {
-            return View(db.Fans.ToList());
+            var GenderList = new List<string>();
+
+            var GenderQry = from d in db.Fans
+                           orderby d.Gender
+                           select d.Gender;
+
+            GenderList.AddRange(GenderQry.Distinct());
+            ViewBag.gender = new SelectList(GenderList);
+
+            var fans = from f in db.Fans
+                         select f;
+
+            if (!String.IsNullOrEmpty(firstName))
+            {
+                fans = fans.Where(f => f.FirstName.Contains(firstName));
+            }
+
+            if (!String.IsNullOrEmpty(lastName))
+            {
+                fans = fans.Where(f => f.LastName.Contains(lastName));
+            }
+
+            if (!String.IsNullOrEmpty(gender))
+            {
+                fans = fans.Where(x => x.Gender == gender);
+            }
+
+            return View(fans.ToList());
         }
 
         // GET: Fans/Details/5

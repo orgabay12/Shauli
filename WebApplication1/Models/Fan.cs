@@ -12,7 +12,7 @@ namespace WebApplication1.Models
         [Key]
         public int ID { get; set; }
         public String FirstName { get; set; }
-        public String LastTime { get; set; }
+        public String LastName { get; set; }
         public String Gender { get; set; }
         public DateTime BirthDay { get; set; }
         public int Seniority { get; set; }
