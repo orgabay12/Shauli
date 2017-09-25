@@ -1,0 +1,70 @@
+﻿@model IEnumerable<WebApplication1.Models.Post>
+
+<form id="search">
+    <u>Search</u>:
+    <input type="date" name="datef" placeholder="Date">
+    <input type="text" name="namef" placeholder="Publisher Name">
+    <input type="email" name="emailf" placeholder="Publisher Email">
+    <input type="text" name="contentf" placeholder="Post Content"><br>
+    Posts Number -
+    <input type="range" name="postInputName" id="postInputId" value="1" min="1" max="10" oninput="postOutputId.value = postInputId.value">
+    <output name="postOutputName" id="postOutputId">1</output>
+</form>
+
+@foreach (var post in Model){
+<section>
+    <article class="blogPost">
+        <header>
+            <h2>@post.Title</h2>
+            <p>Posted on <time datetime="2009-06-29T23:31+01:00">@post.PostDate.ToString("MMM dd yyyy")</time> by <a href=@post.AuthorWebsite>@post.AuthorName</a> - <a href=@String.Format("#comments{0}",post.ID)>@String.Format("{0} comments", post.Comments.Count)</a></p>
+        </header>
+        <div>
+            <p>@post.Content</p>
+            <img src=@post.Image alt=""/>
+            @if (post.Video != null)
+            {
+            <video controls="controls">
+                <source src=@post.Video type="video/mp4" />
+                Your browser does not support the video tag.
+            </video>
+            }
+        </div>
+    </article>
+</section>
+<section id="comments">
+    <h3>Comments</h3>
+    <section id=@String.Format("comments{0}",post.ID)>
+        @foreach (var comment in post.Comments)
+        {
+            <article>
+                <header>
+                    <a href=@comment.AuthorWebsite>@comment.AuthorName</a> 
+                    <h5>@comment.Title</h5>
+                </header>
+                <p>@comment.Content</p>
+            </article>
+        }
+    </section>
+</section>
+<form action=@String.Format("/comments/create?PostId={0}",post.ID) method="post">
+    @Html.AntiForgeryToken()
+    <h3>Post a comment</h3>
+    <p>
+        <label for="Title">Title</label>
+        <input name="Title" id="Title" type="text" required />
+    </p>
+    <p>
+        <label for="AuthorName">Name</label>
+        <input name="AuthorName" id="AuthorName" type="text" required />
+    </p>
+    <p>
+        <label for="AuthorWebsite">Website</label>
+        <input name="AuthorWebsite" id="AuthorWebsite" type="url" />
+    </p>
+    <p>
+        <label for="Content">Comment</label>
+        <textarea name="Content" id="Content" required></textarea>
+    </p>
+    <p><input type="submit" value="Post comment" /></p>
+</form>
+}

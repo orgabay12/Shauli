@@ -1,0 +1,78 @@
+﻿@model WebApplication1.Models.Post
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Post</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AuthorName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AuthorName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AuthorWebsite)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AuthorWebsite)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PostDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PostDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Content)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Content)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Image)
+        </dt>
+
+        <dd>
+            <img src=@Html.DisplayFor(model => model.Image) style="max-width:300px" />
+        </dd>
+        @if (Model.Video != null)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Video)
+            </dt>
+
+            <dd>
+            <video controls="controls" style="max-width:300px">
+                <source src=@Html.DisplayFor(model => model.Video) type="video/mp4" />
+                Your browser does not support the video tag.
+            </video>   
+        </dd>
+        }
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
