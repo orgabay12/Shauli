@@ -34,26 +34,66 @@ namespace WebApplication1.Controllers
             posts.ForEach(s => db.Posts.Add(s));
             db.SaveChanges();
 
+            var post1 = db.Posts.Where(s => s.Title == "this is the title of a blog post").FirstOrDefault();
+            var post2 = db.Posts.Where(s => s.Title == "My Post").FirstOrDefault();
+
             var comments = new List<Comment>
             {
                 new Comment {Title="Comment 1",
                              AuthorName="George Washington",
                              AuthorWebsite="#",
                              Content="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.",
-                             PostId=1,},
+                             PostId=post1.ID},
                 new Comment {Title="Comment 2",
                              AuthorName="Benjamin Franklin",
                              AuthorWebsite="#",
                              Content="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.",
-                             PostId=1,},
+                             PostId=post1.ID,},
                 new Comment {Title="Comment 3",
                              AuthorName="Barack Obama",
                              AuthorWebsite="#",
                              Content="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.",
-                             PostId=1,},
+                             PostId=post1.ID,},
+                new Comment {Title="Comment 4",
+                             AuthorName="George Washington",
+                             AuthorWebsite="#",
+                             Content="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.",
+                             PostId=post2.ID},
+                new Comment {Title="Comment 5",
+                             AuthorName="Benjamin Franklin",
+                             AuthorWebsite="#",
+                             Content="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.",
+                             PostId=post2.ID,},
+                new Comment {Title="Comment 6",
+                             AuthorName="Barack Obama",
+                             AuthorWebsite="#",
+                             Content="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.",
+                             PostId=post2.ID,},
 
             };
             comments.ForEach(s => db.Comments.Add(s));
+            db.SaveChanges();
+
+
+            var fans = new List<Fan>
+            {
+                new Fan{FirstName="Or",
+                        LastName="Gabay",
+                        Gender="Male",
+                        BirthDay=new DateTime(1992,07,26),
+                        Seniority=4},
+                new Fan{FirstName="Tal",
+                        LastName="Gabay",
+                        Gender="Female",
+                        BirthDay=new DateTime(1995,06,01),
+                        Seniority=4},
+                new Fan{FirstName="Matan",
+                        LastName="Gabay",
+                        Gender="Male",
+                        BirthDay=new DateTime(200,09,14),
+                        Seniority=4},
+            };
+            fans.ForEach(s => db.Fans.Add(s));
             db.SaveChanges();
             return "OK!";
 
