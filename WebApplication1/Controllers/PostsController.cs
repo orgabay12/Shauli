@@ -15,9 +15,17 @@ namespace WebApplication1.Controllers
         private BlogContext db = new BlogContext();
 
         // GET: Posts
-        public ActionResult Index()
+        public ActionResult Index(string title)
         {
-            return View(db.Posts.ToList());
+            var posts = from p in db.Posts
+                        select p;
+
+            if (!String.IsNullOrEmpty(title))
+            {
+                posts = posts.Where(f => f.Title.Contains(title));
+            }
+
+            return View(posts.ToList());
         }
 
         // GET: Posts/Details/5

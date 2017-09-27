@@ -3,10 +3,10 @@
 <html>
 <head>
     <title>Shauli</title>
-    <audio autoplay loop>
+    @*<audio autoplay loop>
         <source src="/Content/Minions Banana.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
-    </audio>
+    </audio>*@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -16,11 +16,11 @@
     </header>
     <nav>
         <!-- Navigation -->
-        <ul>
-            <li class="selected">@Html.ActionLink("Blog", "Index", "Blog")</li>
-            <li>@Html.ActionLink("Fan Club","Index", "Fans")</li>
-            <li>@Html.ActionLink("Posts Panel", "Index", "Posts")</li>
-            <li><a href="#">Contact</a></li>
+        <ul id="navbar">
+            <li id="navblog">@Html.ActionLink("Blog", "Index", "Blog")</li>
+            <li id="navfans">@Html.ActionLink("Fan Club","Index", "Fans")</li>
+            <li id="navposts">@Html.ActionLink("Posts Panel", "Index", "Posts")</li>
+            <li id="navstats">@Html.ActionLink("Statistics", "Statistics", "Blog")</li>
             <li class="subscribe">
                 <div id="transDemo2">
                     <img src="/Content/images/rss.png" width="25" height="25">
@@ -43,15 +43,19 @@
             @RenderBody()
         </div>
         <aside>
-            <section>
+            <section id="weatherWrap">
                 <header>
-                    <h3>Categories</h3>
+                    <h3>Our Centers Weather</h3>
                 </header>
-                <ul>
-                    <li><a href="#">Lorem ipsum dolor</a></li>
-                    <li><a href="#">Sit amet consectetur</a></li>
-                    <li><a href="#">Adipisicing elit sed</a></li>
-                </ul>
+                <select id="cities" class="form-control">
+                    <option value="London">London</option>
+                    <option value="Tel Aviv">Tel Aviv</option>
+                    <option value="Madrid">Madrid</option>
+                    <option value="Berlin">Berlin</option>
+                </select>
+                <div id="weatherRes">
+                </div>
+                <button type="button" class="btn btn-default">Get Weather</button>
             </section>
             <section>
                 <header>
@@ -98,6 +102,7 @@
     </footer>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Scripts/shauli")
     @RenderSection("scripts", required: false)
 </body>
 </html>

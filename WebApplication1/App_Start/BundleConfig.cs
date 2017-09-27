@@ -26,6 +26,9 @@ namespace WebApplication1
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/shauli.css"));
+
+            bundles.Add(new ScriptBundle("~/Scripts/shauli").Include(
+                       "~/Scripts/shauli.js"));
         }
     }
 }

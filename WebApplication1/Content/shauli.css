@@ -166,8 +166,13 @@ nav {
 		margin-bottom: 21px;
 	}
 	#search input{
-		width: 150px !important;
+		width: 180px !important;
+        display: inline-block;
+        margin: 3px;
 	}
+    #search input[type="submit"]{
+        width: 100px !important;
+    }
 
 
 /*------------------------------
@@ -219,6 +224,10 @@ aside section {
 			aside section ul li a:hover {
 				text-decoration: underline;
 			}
+
+#weatherRes{
+    margin:5px;
+}
 
 /*------------------------------
 =BLOG POST
@@ -328,13 +337,13 @@ form {
 			font-weight: bold;
 			vertical-align: top;
 		}
-	
-		form input[type="text"], form input[type="email"], form input[type="date"], form input[type="url"], form input[type="datetime"] {
-			display: table-cell;
-			width: 300px;
-			height: 20px;
-			border: 1px solid #d7d7d7;
-		}
+
+    form input[type="text"], form input[type="email"], form input[type="date"], form input[type="url"], form input[type="datetime"], form input[type="number"] {
+        display: table-cell;
+        width: 300px;
+        height: 30px;
+        border: 1px solid #d7d7d7;
+    }
 		
 		form textarea {
 			width: 300px;

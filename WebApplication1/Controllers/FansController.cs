@@ -73,7 +73,7 @@ namespace WebApplication1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,FirstName,LastTime,Gender,BirthDay,Seniority")] Fan fan)
+        public ActionResult Create([Bind(Include = "ID,FirstName,LastName,Gender,BirthDay,Seniority")] Fan fan)
         {
             if (ModelState.IsValid)
             {
@@ -105,7 +105,7 @@ namespace WebApplication1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,FirstName,LastTime,Gender,BirthDay,Seniority")] Fan fan)
+        public ActionResult Edit([Bind(Include = "ID,FirstName,LastName,Gender,BirthDay,Seniority")] Fan fan)
         {
             if (ModelState.IsValid)
             {

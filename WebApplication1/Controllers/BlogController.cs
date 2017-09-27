@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Dynamic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -7,9 +9,15 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
+    public class PostPerUser
+    {
+        public string Name;
+        public int Posts;
+    }
     public class BlogController : Controller
     {
         private BlogContext db = new BlogContext();
+
         public string init()
         {
             var posts = new List<Post>
@@ -80,17 +88,17 @@ namespace WebApplication1.Controllers
                 new Fan{FirstName="Or",
                         LastName="Gabay",
                         Gender="Male",
-                        BirthDay=new DateTime(1992,07,26),
+                        BirthDay=new DateTime(1992,7,26),
                         Seniority=4},
                 new Fan{FirstName="Tal",
                         LastName="Gabay",
                         Gender="Female",
-                        BirthDay=new DateTime(1995,06,01),
+                        BirthDay=new DateTime(1995,6,1),
                         Seniority=4},
                 new Fan{FirstName="Matan",
                         LastName="Gabay",
                         Gender="Male",
-                        BirthDay=new DateTime(200,09,14),
+                        BirthDay=new DateTime(2000,9,14),
                         Seniority=4},
             };
             fans.ForEach(s => db.Fans.Add(s));
@@ -98,9 +106,42 @@ namespace WebApplication1.Controllers
             return "OK!";
 
         }
-        public ActionResult Index()
+        public ActionResult Index(string author, string content, string date)
         {
-            return View(db.Posts.ToList());
+            var posts = from p in db.Posts
+                        select p;
+
+            if (!String.IsNullOrEmpty(author))
+            {
+                posts = posts.Where(f => f.AuthorName.Contains(author));
+            }
+
+            if (!String.IsNullOrEmpty(content))
+            {
+                posts = posts.Where(f => f.Content.Contains(content));
+            }
+
+            if (!String.IsNullOrEmpty(date))
+            {
+                var dt = Convert.ToDateTime(date);
+                posts = posts.Where(f => f.PostDate == dt);
+
+            }
+
+            return View(posts.ToList());
+        }
+
+        public ActionResult Statistics()
+        {
+            var postsPerUser = from p in db.Posts
+                               group p by p.AuthorName into author
+                               select new PostPerUser{ Name = author.Key, Posts = author.Count()};
+            ViewBag.postsPerUser = postsPerUser.ToList<PostPerUser>();
+            foreach(var person in ViewBag.postsPerUser)
+            {
+                Console.WriteLine(person.Name);
+            }
+            return View();
         }
     }
 }

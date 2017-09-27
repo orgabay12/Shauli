@@ -14,6 +14,8 @@ namespace WebApplication1.Models
         public String FirstName { get; set; }
         public String LastName { get; set; }
         public String Gender { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime BirthDay { get; set; }
         public int Seniority { get; set; }
     }

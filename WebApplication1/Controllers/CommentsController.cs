@@ -15,9 +15,19 @@ namespace WebApplication1.Controllers
         private BlogContext db = new BlogContext();
 
         // GET: Comments/1
-        public ActionResult Index(int id)
+        public ActionResult Index(int? id, string author)
         {
+            if (id == null)
+            {
+                return RedirectToAction("Index", "Posts");
+            }
             var comments = db.Comments.Where(c => c.PostId == id);
+
+            if (!String.IsNullOrEmpty(author))
+            {
+                comments = comments.Where(c => c.AuthorName.Contains(author));
+            }
+
             return View(comments.ToList());
         }
 

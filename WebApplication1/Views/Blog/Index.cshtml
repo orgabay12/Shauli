@@ -1,15 +1,13 @@
 ﻿@model IEnumerable<WebApplication1.Models.Post>
-
-<form id="search">
-    <u>Search</u>:
-    <input type="date" name="datef" placeholder="Date">
-    <input type="text" name="namef" placeholder="Publisher Name">
-    <input type="email" name="emailf" placeholder="Publisher Email">
-    <input type="text" name="contentf" placeholder="Post Content"><br>
-    Posts Number -
-    <input type="range" name="postInputName" id="postInputId" value="1" min="1" max="10" oninput="postOutputId.value = postInputId.value">
-    <output name="postOutputName" id="postOutputId">1</output>
-</form>
+@using (Html.BeginForm("Index", "Blog", FormMethod.Get, new {@id="search"}))
+{
+    <p>
+        @Html.TextBox("author","", new { @placeholder = "Author Name", @class= "form-control" })
+        @Html.TextBox("content","", new { @placeholder = "Content", @class = "form-control" })
+        @Html.TextBox("date","", new { @placeholder = "Date", @type="date", @class = "form-control" })
+        <input type="submit" class="btn btn-default" value="Search" />
+    </p>
+}
 
 @foreach (var post in Model){
 <section>
