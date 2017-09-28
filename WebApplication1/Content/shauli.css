@@ -60,7 +60,7 @@ nav {
 
 	nav ul {
 		margin: 0 auto;
-		width: 940px;
+		width: 1000px;
 		list-style: none;
 	}
 
@@ -406,3 +406,29 @@ footer {
 		footer ul li a {
 			display: block;
 		}
+
+/*------------------------------
+=ABOUT PAGE
+------------------------------*/
+#abouth1 {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+#aboutSection {
+    display:inline-block;
+    margin-bottom:10px;
+}
+    #aboutSection p {
+        max-width: 60%;
+        float: left;
+        margin-top: 40px;
+    }
+
+#myCanvas{
+    float:right;
+    margin-top:0px;
+}
+
+#maph3{
+    font-size:22px;
+}

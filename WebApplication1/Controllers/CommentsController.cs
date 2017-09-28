@@ -58,7 +58,7 @@ namespace WebApplication1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Title,AuthorName,AuthorWebsite,Content")] Comment comment, int PostId)
+        public ActionResult Create([Bind(Include = "ID,Title,AuthorName,AuthorEmail,Content")] Comment comment, int PostId)
         {
             if (ModelState.IsValid)
             {
@@ -93,10 +93,12 @@ namespace WebApplication1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Title,AuthorName,AuthorWebsite,Content,PostId")] Comment comment)
+        public ActionResult Edit([Bind(Include = "ID,Title,AuthorName,AuthorEmail,Content,PostId")] Comment comment, int PostId)
         {
             if (ModelState.IsValid)
             {
+                comment.PostId = PostId;
+                comment.Post = db.Posts.Find(PostId);
                 db.Entry(comment).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index", new {id=comment.PostId });

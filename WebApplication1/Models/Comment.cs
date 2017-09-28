@@ -13,7 +13,7 @@ namespace WebApplication1.Models
         public int ID { get; set; }
         public String Title { get; set; }
         public String AuthorName { get; set; }
-        public String AuthorWebsite { get; set; }
+        public String AuthorEmail { get; set; }
         [DataType(DataType.MultilineText)]
         public String Content { get; set; }
         public int PostId { get; set; }

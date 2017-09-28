@@ -49,32 +49,32 @@ namespace WebApplication1.Controllers
             {
                 new Comment {Title="Comment 1",
                              AuthorName="George Washington",
-                             AuthorWebsite="#",
+                             AuthorEmail="#",
                              Content="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.",
                              PostId=post1.ID},
                 new Comment {Title="Comment 2",
                              AuthorName="Benjamin Franklin",
-                             AuthorWebsite="#",
+                             AuthorEmail="#",
                              Content="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.",
                              PostId=post1.ID,},
                 new Comment {Title="Comment 3",
                              AuthorName="Barack Obama",
-                             AuthorWebsite="#",
+                             AuthorEmail="#",
                              Content="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.",
                              PostId=post1.ID,},
                 new Comment {Title="Comment 4",
                              AuthorName="George Washington",
-                             AuthorWebsite="#",
+                             AuthorEmail="#",
                              Content="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.",
                              PostId=post2.ID},
                 new Comment {Title="Comment 5",
                              AuthorName="Benjamin Franklin",
-                             AuthorWebsite="#",
+                             AuthorEmail="#",
                              Content="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.",
                              PostId=post2.ID,},
                 new Comment {Title="Comment 6",
                              AuthorName="Barack Obama",
-                             AuthorWebsite="#",
+                             AuthorEmail="#",
                              Content="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.",
                              PostId=post2.ID,},
 
@@ -141,6 +141,12 @@ namespace WebApplication1.Controllers
             {
                 Console.WriteLine(person.Name);
             }
+            return View();
+        }
+
+        public ActionResult About()
+        {
+
             return View();
         }
     }
