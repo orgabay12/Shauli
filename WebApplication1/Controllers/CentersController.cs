@@ -10,134 +10,107 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
-    public class FansController : Controller
+    public class CentersController : Controller
     {
         private BlogContext db = new BlogContext();
 
-        // GET: Fans
-        public ActionResult Index(string firstName, string country, string gender)
+        // GET: Centers
+        public ActionResult Index()
         {
-            var GenderList = new List<string>();
-
-            var GenderQry = from d in db.Fans
-                           orderby d.Gender
-                           select d.Gender;
-
-            GenderList.AddRange(GenderQry.Distinct());
-            ViewBag.gender = new SelectList(GenderList);
-
-            var fans = from f in db.Fans
-                         select f;
-
-            if (!String.IsNullOrEmpty(firstName))
-            {
-                fans = fans.Where(f => f.FirstName.Contains(firstName));
-            }
-
-            if (!String.IsNullOrEmpty(country))
-            {
-                fans = fans.Where(f => f.Country.Contains(country));
-            }
-
-            if (!String.IsNullOrEmpty(gender))
-            {
-                fans = fans.Where(x => x.Gender == gender);
-            }
-
-            return View(fans.ToList());
+            return View(db.Centers.ToList());
         }
 
-        // GET: Fans/Details/5
+        // GET: Centers/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Fan fan = db.Fans.Find(id);
-            if (fan == null)
+            Center center = db.Centers.Find(id);
+            if (center == null)
             {
                 return HttpNotFound();
             }
-            return View(fan);
+            return View(center);
         }
 
-        // GET: Fans/Create
+        // GET: Centers/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Fans/Create
+        // POST: Centers/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,FirstName,LastName,Gender,BirthDay,Country")] Fan fan)
+        public ActionResult Create([Bind(Include = "ID,Country,City,Latitude,Longitude,Description,Address,Phone")] Center center)
         {
             if (ModelState.IsValid)
             {
-                db.Fans.Add(fan);
+                db.Centers.Add(center);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(fan);
+            return View(center);
         }
 
-        // GET: Fans/Edit/5
+        // GET: Centers/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Fan fan = db.Fans.Find(id);
-            if (fan == null)
+            Center center = db.Centers.Find(id);
+            if (center == null)
             {
                 return HttpNotFound();
             }
-            return View(fan);
+            return View(center);
         }
 
-        // POST: Fans/Edit/5
+        // POST: Centers/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,FirstName,LastName,Gender,BirthDay,Country")] Fan fan)
+        public ActionResult Edit([Bind(Include = "ID,Country,City,Latitude,Longitude,Description,Address,Phone")] Center center)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(fan).State = EntityState.Modified;
+                db.Entry(center).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(fan);
+            return View(center);
         }
 
-        // GET: Fans/Delete/5
+        // GET: Centers/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Fan fan = db.Fans.Find(id);
-            if (fan == null)
+            Center center = db.Centers.Find(id);
+            if (center == null)
             {
                 return HttpNotFound();
             }
-            return View(fan);
+            return View(center);
         }
 
-        // POST: Fans/Delete/5
+        // POST: Centers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Fan fan = db.Fans.Find(id);
-            db.Fans.Remove(fan);
+            Center center = db.Centers.Find(id);
+            db.Centers.Remove(center);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

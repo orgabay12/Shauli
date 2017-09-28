@@ -49,8 +49,8 @@
                     <h3>Our Centers Weather</h3>
                 </header>
                 <select id="cities" class="form-control">
-                    <option value="London">London</option>
                     <option value="Tel Aviv">Tel Aviv</option>
+                    <option value="Roma">Roma</option>
                     <option value="Madrid">Madrid</option>
                     <option value="Berlin">Berlin</option>
                 </select>
@@ -105,5 +105,8 @@
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/Scripts/shauli")
     @RenderSection("scripts", required: false)
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCarSqkP2bpqHs05UwR8l47zOA2psWKkEQ &callback=initMap">
+    </script>
 </body>
 </html>

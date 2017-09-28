@@ -14,14 +14,20 @@ namespace WebApplication1.Controllers
         public string Name;
         public int Posts;
     }
+
+    public class MapObj
+    {
+        public string city;
+        public float lat;
+        public float lng;
+    }
     public class BlogController : Controller
     {
         private BlogContext db = new BlogContext();
 
         public string init()
         {
-            var posts = new List<Post>
-            {
+            var posts = new List<Post>{
                 new Post { Title="this is the title of a blog post",
                            AuthorName="mads kjaer",
                            AuthorWebsite="#",
@@ -45,8 +51,7 @@ namespace WebApplication1.Controllers
             var post1 = db.Posts.Where(s => s.Title == "this is the title of a blog post").FirstOrDefault();
             var post2 = db.Posts.Where(s => s.Title == "My Post").FirstOrDefault();
 
-            var comments = new List<Comment>
-            {
+            var comments = new List<Comment>{
                 new Comment {Title="Comment 1",
                              AuthorName="George Washington",
                              AuthorEmail="#",
@@ -83,26 +88,56 @@ namespace WebApplication1.Controllers
             db.SaveChanges();
 
 
-            var fans = new List<Fan>
-            {
+            var fans = new List<Fan>{
                 new Fan{FirstName="Or",
                         LastName="Gabay",
                         Gender="Male",
                         BirthDay=new DateTime(1992,7,26),
-                        Seniority=4},
+                        Country="Italy"},
                 new Fan{FirstName="Tal",
                         LastName="Gabay",
                         Gender="Female",
                         BirthDay=new DateTime(1995,6,1),
-                        Seniority=4},
+                        Country="Germany"},
                 new Fan{FirstName="Matan",
                         LastName="Gabay",
                         Gender="Male",
                         BirthDay=new DateTime(2000,9,14),
-                        Seniority=4},
+                        Country="Israel"},
             };
             fans.ForEach(s => db.Fans.Add(s));
             db.SaveChanges();
+
+            var centers = new List<Center>{
+                new Center{
+                    Country="Israel",
+                    City="Tel Aviv",
+                    Latitude=32.079980,
+                    Longitude=34.799967,
+                },
+                new Center{
+                    Country="Italy",
+                    City="Roma",
+                    Latitude=41.902473,
+                    Longitude=12.496355,
+                },
+                new Center{
+                    Country="Spain",
+                    City="Madrid",
+                    Latitude=40.414504,
+                    Longitude=-3.700706,
+                },
+                new Center{
+                    Country="Germany",
+                    City="Berlin",
+                    Latitude=52.521597,
+                    Longitude=13.415151,
+                },
+
+            };
+            centers.ForEach(s => db.Centers.Add(s));
+            db.SaveChanges();
+            
             return "OK!";
 
         }
@@ -146,8 +181,32 @@ namespace WebApplication1.Controllers
 
         public ActionResult About()
         {
-
-            return View();
+            var centers = from c in db.Centers
+                        select c;
+            // Ajax get request, data for google maps api
+            if (Request.AcceptTypes.Contains("application/json"))
+            {
+                // Get number of Fnas in centers' countries
+                var fans = (from c in db.Centers
+                            join f in db.Fans on c.Country equals f.Country
+                            select (new { f.FirstName, c.City }) into x
+                            group x by x.City into city
+                            select new { City = city.Key, Fans = city.Count() });
+                // Attach the fans number to the object
+                foreach(var f in fans)
+                {
+                    var center = centers.Where(s => s.City == f.City).FirstOrDefault();
+                    center.Description = "Fans In Country: " + f.Fans.ToString();
+                }
+                // Create json 
+                var jsoncenters = new List<object>();
+                foreach (var center in centers) {
+                    jsoncenters.Add(new {lat=center.Latitude, lng=center.Longitude, city=center.City, description=center.Description});
+                }
+                return Json(jsoncenters, JsonRequestBehavior.AllowGet);
+            }
+            // For About view (Razor)
+            return View(centers.ToList());
         }
     }
 }

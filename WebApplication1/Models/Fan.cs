@@ -17,6 +17,7 @@ namespace WebApplication1.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime BirthDay { get; set; }
-        public int Seniority { get; set; }
+        public String Country { get; set; }
+
     }
 }

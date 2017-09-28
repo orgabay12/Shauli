@@ -99,13 +99,30 @@ if ($(location).attr('pathname') === '/Blog/About') {
     img.src = "/Content/images/shuliabout.jpg";
 
     /* Google maps*/
-    function myMap() {
-        var mapOptions = {
-            center: new google.maps.LatLng(51.5, -0.12),
-            zoom: 10,
-            mapTypeId: google.maps.MapTypeId.HYBRID
-        }
-        var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+    function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 3,
+            center: new google.maps.LatLng(40.717245, 15.907102)
+        });
+        $.get("/Blog/About", function (centers, status, xhr) {
+            for (var i = 0; i < centers.length; i++) {
+                var label = "<h5>" + centers[i].city + "</h5>" + "<h6>" + centers[i].description + "</h6>"
+                addMarker(centers[i].lat, centers[i].lng, label, map)
+            };
+        }, "json");
+    }
+    function addMarker(lat, lng, label, map) {
+        var location = new google.maps.LatLng(lat, lng);
+        var marker = new google.maps.Marker({
+            position: location,
+            map: map
+        });
+        google.maps.event.addListener(marker, 'click', function () {
+            infowindow = new google.maps.InfoWindow({
+                content: label,
+            });
+            infowindow.open(map, marker);
+        });
     }
 
 }
