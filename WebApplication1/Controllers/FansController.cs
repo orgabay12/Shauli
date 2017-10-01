@@ -10,11 +10,13 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
+    [Authorize]
     public class FansController : Controller
     {
         private BlogContext db = new BlogContext();
 
         // GET: Fans
+        [AllowAnonymous]
         public ActionResult Index(string firstName, string country, string gender)
         {
             var GenderList = new List<string>();
@@ -48,6 +50,8 @@ namespace WebApplication1.Controllers
         }
 
         // GET: Fans/Details/5
+        [AllowAnonymous]
+
         public ActionResult Details(int? id)
         {
             if (id == null)

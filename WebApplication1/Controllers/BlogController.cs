@@ -8,6 +8,9 @@ using System.Web.Mvc;
 using WebApplication1.Models;
 using TFIDFEX;
 using Accord.MachineLearning;
+using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace WebApplication1.Controllers
 {
@@ -20,7 +23,7 @@ namespace WebApplication1.Controllers
     public class BlogController : Controller
     {
         private BlogContext db = new BlogContext();
-        public string init()
+        public async Task<ActionResult> Init()
         {
             var posts = new List<Post>{
                 new Post { Title="this is the title of a blog post",
@@ -132,12 +135,24 @@ namespace WebApplication1.Controllers
             };
             centers.ForEach(s => db.Centers.Add(s));
             db.SaveChanges();
-            
-            return "OK!";
+
+            // Create admin user
+            var result = await new AccountController().AdminUser();
+
+            if (!result.Succeeded)
+            {
+                return new ContentResult { Content = "Error in initialize" };
+            }
+
+            return new ContentResult { Content = "OK" };
 
         }
         public ActionResult Index(string author, string content, string date, string title)
         {
+            if (User.Identity.IsAuthenticated)
+            {
+
+            }
             var posts = from p in db.Posts
                         select p;
 

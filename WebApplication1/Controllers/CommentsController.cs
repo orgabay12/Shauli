@@ -10,11 +10,13 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
+    [Authorize]
     public class CommentsController : Controller
     {
         private BlogContext db = new BlogContext();
 
         // GET: Comments/1
+        [AllowAnonymous]
         public ActionResult Index(int? id, string author)
         {
             if (id == null)

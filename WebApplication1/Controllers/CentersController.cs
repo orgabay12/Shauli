@@ -10,6 +10,7 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
+    [Authorize]
     public class CentersController : Controller
     {
         private BlogContext db = new BlogContext();

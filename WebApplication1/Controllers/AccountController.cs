@@ -52,6 +52,15 @@ namespace WebApplication1.Controllers
             }
         }
 
+        // Create custom admin user for managment
+        [AllowAnonymous]
+        public async Task<IdentityResult> AdminUser()
+        {
+            var user = new ApplicationUser { UserName = "admin@admin.com", Email = "admin@admin.com" };
+            var result = await UserManager.CreateAsync(user, "Password1!");
+            return result;
+        }
+
         //
         // GET: /Account/Login
         [AllowAnonymous]
@@ -392,7 +401,7 @@ namespace WebApplication1.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Blog");
         }
 
         //
@@ -449,7 +458,7 @@ namespace WebApplication1.Controllers
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Blog");
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult

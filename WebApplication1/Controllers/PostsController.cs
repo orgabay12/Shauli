@@ -11,6 +11,7 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
+    [Authorize]
     public class PostsController : Controller
     {
         private BlogContext db = new BlogContext();
@@ -18,7 +19,7 @@ namespace WebApplication1.Controllers
          * Get related post for each post
          * Use k-means cluster algorithm
          */
-        public void PostetsRelatedAi()
+        private void PostetsRelatedAi()
         {
             var posts = (from p in db.Posts
                          select p).ToList();
@@ -143,10 +144,10 @@ namespace WebApplication1.Controllers
                 {
                     throw e;
                 }
+                // Reattach related posts
+                PostetsRelatedAi();
                 return RedirectToAction("Index");
             }
-            // Reattach related posts
-            PostetsRelatedAi();
             return View(post);
         }
 
@@ -210,10 +211,11 @@ namespace WebApplication1.Controllers
                 post.PostDate = OldPost.PostDate;
                 db.Entry(post).State = EntityState.Modified;
                 db.SaveChanges();
+
+                // Reattach related posts
+                PostetsRelatedAi();
                 return RedirectToAction("Index");
             }
-            // Reattach related posts
-            PostetsRelatedAi();
             return View(post);
         }
 
