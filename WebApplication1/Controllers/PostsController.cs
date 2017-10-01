@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Accord.MachineLearning;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -13,6 +14,66 @@ namespace WebApplication1.Controllers
     public class PostsController : Controller
     {
         private BlogContext db = new BlogContext();
+        /**
+         * Get related post for each post
+         * Use k-means cluster algorithm
+         */
+        public void PostetsRelatedAi()
+        {
+            var posts = (from p in db.Posts
+                         select p).ToList();
+
+            // Create Array of all posts content
+            string[] documents = (from p in db.Posts
+                                  select p.Content).ToArray();
+
+            ///Apply TF*IDF to the documents and get the resulting vectors.
+            double[][] inputs = TFIDFEX.TFIDF.Transform(documents);
+            inputs = TFIDFEX.TFIDF.Normalize(inputs);
+
+            // Create a new K-Means algorithm with Posts/2 clusters (create couples) 
+            KMeans kmeans = new KMeans(Convert.ToInt32(posts.Count() / 2));
+
+            // Compute the algorithm, retrieving an integer array
+            //  containing the labels for each of the observations
+            KMeansClusterCollection clusters = kmeans.Learn(inputs);
+            int[] labels = clusters.Decide(inputs);
+
+            // Create list with clusters couples
+            var clustersList = new List<List<int>>();
+            for (int j = 0; j < Convert.ToInt32(posts.Count() / 2); j++)
+            {
+                clustersList.Add(labels.Select((s, i) => new { i, s })
+                                       .Where(t => t.s == j)
+                                       .Select(t => t.i)
+                                       .ToList());
+            }
+
+            // Adjust all posts and thier related by clustering results
+            foreach (var clusetr in clustersList)
+            {
+                // In case cluster contains 3 posts and not 2
+                if (clusetr.Count() > 2)
+                {
+                    posts[clusetr[0]].relatedPost = posts[clusetr[1]].Title;
+                    posts[clusetr[1]].relatedPost = posts[clusetr[0]].Title;
+                    posts[clusetr[2]].relatedPost = posts[clusetr[0]].Title;
+
+                }
+                else
+                {
+                    posts[clusetr.First()].relatedPost = posts[clusetr.Last()].Title;
+                    posts[clusetr.Last()].relatedPost = posts[clusetr.First()].Title;
+                }
+
+            }
+
+            // Update Changes in DB
+            foreach(var p in posts){
+                db.Entry(p).State = EntityState.Modified;
+            }
+            db.SaveChanges();
+        }
 
         // GET: Posts
         public ActionResult Index(string title)
@@ -74,10 +135,18 @@ namespace WebApplication1.Controllers
 
                 post.PostDate = DateTime.Now;
                 db.Posts.Add(post);
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    throw e;
+                }
                 return RedirectToAction("Index");
             }
-
+            // Reattach related posts
+            PostetsRelatedAi();
             return View(post);
         }
 
@@ -143,6 +212,8 @@ namespace WebApplication1.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            // Reattach related posts
+            PostetsRelatedAi();
             return View(post);
         }
 
@@ -178,6 +249,9 @@ namespace WebApplication1.Controllers
             }
             db.Posts.Remove(post);
             db.SaveChanges();
+
+            // Reattach related posts
+            PostetsRelatedAi();
             return RedirectToAction("Index");
         }
 

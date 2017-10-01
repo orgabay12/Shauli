@@ -63,9 +63,10 @@ namespace WebApplication1.Controllers
             if (ModelState.IsValid)
             {
                 comment.PostId = PostId;
+                var postTitle = db.Posts.Find(PostId).Title;
                 db.Comments.Add(comment);
                 db.SaveChanges();
-                return RedirectToAction("Index", "Blog");
+                return RedirectToAction("Index", "Blog", new {title= postTitle});
             }
 
             ViewBag.PostId = new SelectList(db.Posts, "ID", "Title", comment.PostId);

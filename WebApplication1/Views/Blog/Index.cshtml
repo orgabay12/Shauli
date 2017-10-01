@@ -26,6 +26,7 @@
                 Your browser does not support the video tag.
             </video>
             }
+            <p><i>If you like this article this may interest you:<br />@Html.ActionLink(post.relatedPost, "Index", new { title = post.relatedPost })</i></p>
         </div>
     </article>
 </section>
@@ -56,8 +57,8 @@
         <input name="AuthorName" id="AuthorName" type="text" required />
     </p>
     <p>
-        <label for="AuthorWebsite">Website</label>
-        <input name="AuthorWebsite" id="AuthorWebsite" type="url" />
+        <label for="AuthorWebsite">Email</label>
+        <input name="AuthorWebsite" id="AuthorWebsite" type="email" />
     </p>
     <p>
         <label for="Content">Comment</label>

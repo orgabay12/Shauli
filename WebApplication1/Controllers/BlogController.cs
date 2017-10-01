@@ -6,6 +6,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebApplication1.Models;
+using TFIDFEX;
+using Accord.MachineLearning;
 
 namespace WebApplication1.Controllers
 {
@@ -14,17 +16,10 @@ namespace WebApplication1.Controllers
         public string Name;
         public int Posts;
     }
-
-    public class MapObj
-    {
-        public string city;
-        public float lat;
-        public float lng;
-    }
+    
     public class BlogController : Controller
     {
         private BlogContext db = new BlogContext();
-
         public string init()
         {
             var posts = new List<Post>{
@@ -54,32 +49,32 @@ namespace WebApplication1.Controllers
             var comments = new List<Comment>{
                 new Comment {Title="Comment 1",
                              AuthorName="George Washington",
-                             AuthorEmail="#",
+                             AuthorEmail="George23@gmail.com",
                              Content="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.",
                              PostId=post1.ID},
                 new Comment {Title="Comment 2",
                              AuthorName="Benjamin Franklin",
-                             AuthorEmail="#",
+                             AuthorEmail="example@hotmail.com",
                              Content="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.",
                              PostId=post1.ID,},
                 new Comment {Title="Comment 3",
                              AuthorName="Barack Obama",
-                             AuthorEmail="#",
+                             AuthorEmail="sendhere@wall.com",
                              Content="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.",
                              PostId=post1.ID,},
                 new Comment {Title="Comment 4",
                              AuthorName="George Washington",
-                             AuthorEmail="#",
+                             AuthorEmail="hansom22@gmail.com",
                              Content="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.",
                              PostId=post2.ID},
                 new Comment {Title="Comment 5",
                              AuthorName="Benjamin Franklin",
-                             AuthorEmail="#",
+                             AuthorEmail="Benjamin@yahoo.com",
                              Content="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.",
                              PostId=post2.ID,},
                 new Comment {Title="Comment 6",
                              AuthorName="Barack Obama",
-                             AuthorEmail="#",
+                             AuthorEmail="harbesh@gmail.com",
                              Content="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.",
                              PostId=post2.ID,},
 
@@ -141,7 +136,7 @@ namespace WebApplication1.Controllers
             return "OK!";
 
         }
-        public ActionResult Index(string author, string content, string date)
+        public ActionResult Index(string author, string content, string date, string title)
         {
             var posts = from p in db.Posts
                         select p;
@@ -161,6 +156,11 @@ namespace WebApplication1.Controllers
                 var dt = Convert.ToDateTime(date);
                 posts = posts.Where(f => f.PostDate == dt);
 
+            }
+
+            if (!String.IsNullOrEmpty(title))
+            {
+                posts = posts.Where(f => f.Title.Contains(title));
             }
 
             return View(posts.ToList());

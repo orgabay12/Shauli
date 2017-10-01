@@ -185,7 +185,7 @@ nav {
 
 	#mainContent {
 		display: table-cell;
-		width: 800px;
+		width: 900px;
 		padding-right: 22px;
 	}
 	
@@ -249,8 +249,8 @@ aside section {
 	-webkit-column-count: 2;
 	
 	/* Column-gap not implemented yet */
-	-moz-column-gap: 22px;
-	-webkit-column-gap: 22px;
+	-moz-column-gap: 24px;
+	-webkit-column-gap: 24px;
 }
 
 .blogPost img {
