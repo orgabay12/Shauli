@@ -1,6 +1,13 @@
-﻿@foreach(var person in ViewBag.postsPerUser)
+﻿@*@foreach(var person in ViewBag.postsPerUser)
 {
     <p> @person.Name - @person.Posts</p>
-}
+}*@
+<div id="piecontainer" style="display: -webkit-inline-box;">
+    <h1>Publishers Statistics</h1>
+    <canvas id="pie" width="500" height="260"></canvas>
+</div>
 
-
+<div id="chartcontainer">
+    <h1>Last Year Posts Statistics</h1>
+    <svg id="bar-chart" width="600" height="260"></svg>
+</div>
