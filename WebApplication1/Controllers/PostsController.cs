@@ -19,7 +19,7 @@ namespace WebApplication1.Controllers
          * Get related post for each post
          * Use k-means cluster algorithm
          */
-        private void PostetsRelatedAi()
+        public void PostetsRelatedAi()
         {
             var posts = (from p in db.Posts
                          select p).ToList();
@@ -39,6 +39,7 @@ namespace WebApplication1.Controllers
             //  containing the labels for each of the observations
             KMeansClusterCollection clusters = kmeans.Learn(inputs);
             int[] labels = clusters.Decide(inputs);
+
 
             // Create list with clusters couples
             var clustersList = new List<List<int>>();

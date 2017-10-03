@@ -184,10 +184,7 @@ namespace WebApplication1.Controllers
             centers.ForEach(s => db.Centers.Add(s));
             db.SaveChanges();
 
-            // Create admin user
-            new AccountController().AdminUser();
-
-            return "OK";
+            return "OK - Data Created";
 
         }
         public ActionResult Index(string author, string content, string date, string title)

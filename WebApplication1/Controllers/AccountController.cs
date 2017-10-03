@@ -54,11 +54,11 @@ namespace WebApplication1.Controllers
 
         // Create custom admin user for managment
         [AllowAnonymous]
-        public async Task<IdentityResult> AdminUser()
+        public async Task<ActionResult> AdminUser()
         {
             var user = new ApplicationUser { UserName = "admin@admin.com", Email = "admin@admin.com" };
-            var result = await UserManager.CreateAsync(user, "Password1!");
-            return result;
+            await UserManager.CreateAsync(user, "Password1!");
+            return new ContentResult { Content = "OK - Admin Created" };
         }
 
         //
