@@ -26,7 +26,10 @@
                 Your browser does not support the video tag.
             </video>
             }
+            @if (!String.IsNullOrEmpty(post.relatedPost))
+            {
             <p><i>If you like this article this may interest you:<br />@Html.ActionLink(post.relatedPost, "Index", new { title = post.relatedPost })</i></p>
+            }
         </div>
     </article>
 </section>

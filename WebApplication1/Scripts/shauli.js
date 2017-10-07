@@ -58,6 +58,23 @@ function getWeather(cityKey) {
     }, "json");
 }
 
+/* Posts Create and Update files validation */
+$('#IsImage').change(function () {
+    if ($(this).is(":checked")) {
+        $("#Image").prop('disabled', false);
+    }
+    else {
+        $("#Image").prop('disabled', true);
+    }
+});
+$('#IsVideo').change(function () {
+    if ($(this).is(":checked")) {
+        $("#Video").prop('disabled', false);
+    }
+    else {
+        $("#Video").prop('disabled', true);
+    }
+});
 
 /**
 * Facebook api initiate

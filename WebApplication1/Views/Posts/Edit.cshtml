@@ -54,7 +54,7 @@
             @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <img src=@Html.DisplayFor(model=>model.Image) style="max-width:300px;"/>
-                @Html.TextBoxFor(model => model.Image, new { type = "file", accept="image/*" })
+                @Html.TextBoxFor(model => model.Image, new { type = "file", accept="image/*", disabled = "disabled" })
                 @Html.CheckBox("IsImage") Upload Image
             </div>
         </div>
@@ -68,7 +68,7 @@
                         Your browser does not support the video tag.
                     </video>
                 }
-                @Html.TextBoxFor(model => model.Video, new { type = "file", accept=".mp4" })
+                @Html.TextBoxFor(model => model.Video, new { type = "file", accept=".mp4", disabled = "disabled" })
                 @Html.CheckBox("IsVideo") Upload Video
             </div>
         </div>

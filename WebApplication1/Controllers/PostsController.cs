@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -141,8 +142,14 @@ namespace WebApplication1.Controllers
                 {
                     db.SaveChanges();
                 }
-                catch (Exception e)
+                // Handle post title duplication
+                catch (DbUpdateException e)
                 {
+                    // Duplicated PK error will include the word unique in it's error massage.
+                    if (e.InnerException.InnerException.Message.Contains("unique")){
+                        ModelState.AddModelError("", "Operation Failed, Make sure post title in unique.");
+                        return View(post);
+                    }
                     throw e;
                 }
                 // Reattach related posts
