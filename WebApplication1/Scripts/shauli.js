@@ -175,7 +175,7 @@ if ($(location).attr('pathname') === '/Blog/Statistics') {
 
         context.translate(width / 2, height / 2);
 
-        d3.json("http://localhost:5242/Blog/Statistics?publisher=True", function (error, data) {
+        d3.json("/Blog/Statistics?publisher=True", function (error, data) {
             if (error) throw error;
 
             var arcs = pie(data);
@@ -214,7 +214,7 @@ if ($(location).attr('pathname') === '/Blog/Statistics') {
         var g = svg.append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-        d3.json("http://localhost:5242/Blog/Statistics?dates=True", function (error, data) {
+        d3.json("/Blog/Statistics?dates=True", function (error, data) {
             if (error) throw error;
 
             x.domain(data.map(function (d) { return d.Date; }));
@@ -227,7 +227,7 @@ if ($(location).attr('pathname') === '/Blog/Statistics') {
 
             g.append("g")
                 .attr("class", "axis axis--y")
-                .call(d3.axisLeft(y).ticks(10))
+                .call(d3.axisLeft(y).ticks(5))
                 .append("text")
                 .attr("transform", "rotate(-90)")
                 .attr("y", 6)

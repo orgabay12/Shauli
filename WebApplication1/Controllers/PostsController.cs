@@ -63,7 +63,7 @@ namespace WebApplication1.Controllers
                     posts[clusetr[2]].relatedPost = posts[clusetr[0]].Title;
 
                 }
-                else
+                else if(clusetr.Count() == 2)
                 {
                     posts[clusetr.First()].relatedPost = posts[clusetr.Last()].Title;
                     posts[clusetr.Last()].relatedPost = posts[clusetr.First()].Title;
@@ -218,7 +218,21 @@ namespace WebApplication1.Controllers
 
                 post.PostDate = OldPost.PostDate;
                 db.Entry(post).State = EntityState.Modified;
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }
+                // Handle post title duplication
+                catch (DbUpdateException e)
+                {
+                    // Duplicated PK error will include the word unique in it's error massage.
+                    if (e.InnerException.InnerException.Message.Contains("unique"))
+                    {
+                        ModelState.AddModelError("", "Operation Failed, Make sure post title in unique.");
+                        return View(post);
+                    }
+                    throw e;
+                }
 
                 // Reattach related posts
                 PostetsRelatedAi();
