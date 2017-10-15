@@ -1,4 +1,4 @@
-﻿<div id="piecontainer" style="display: -webkit-inline-box;">
+﻿<div id="piecontainer" style="display: @(Request.IsAuthenticated ? "table-caption" :"-webkit-inline-box")">
     <h1>Publishers Statistics</h1>
     <canvas id="pie" width="500" height="260"></canvas>
 </div>
