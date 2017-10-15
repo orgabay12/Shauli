@@ -77,10 +77,9 @@ $('#IsVideo').change(function () {
 });
 
 /**
-* Facebook api initiate
+* Facebook api initialization
 */
 document.getElementById('shareBtn').onclick = function () {
-    console.log("asfd");
     FB.init({
         appId: '1648053898603021',
         autoLogAppEvents: true,
@@ -115,7 +114,7 @@ if ($(location).attr('pathname') === '/Blog/About') {
     }
     img.src = "/Content/images/shuliabout.jpg";
 
-    /* Google maps*/
+    /* Google maps callback*/
     function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
             zoom: 3,
@@ -141,7 +140,6 @@ if ($(location).attr('pathname') === '/Blog/About') {
             infowindow.open(map, marker);
         });
     }
-
 }
 
 /* Statistics page functionallity */
@@ -227,7 +225,7 @@ if ($(location).attr('pathname') === '/Blog/Statistics') {
 
             g.append("g")
                 .attr("class", "axis axis--y")
-                .call(d3.axisLeft(y).ticks(5))
+                .call(d3.axisLeft(y).ticks(3))
                 .append("text")
                 .attr("transform", "rotate(-90)")
                 .attr("y", 6)
@@ -243,8 +241,6 @@ if ($(location).attr('pathname') === '/Blog/Statistics') {
                 .attr("width", x.bandwidth())
                 .attr("height", function (d) { return height - y(d.Count); });
         });
-
-
-
+        
     })
 }

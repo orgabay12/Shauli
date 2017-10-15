@@ -49,11 +49,12 @@ namespace WebApplication1.Controllers
         }
 
         // GET: Comments/Create
-        public ActionResult Create()
-        {
-            ViewBag.PostId = new SelectList(db.Posts, "ID", "Title");
-            return View();
-        }
+        //public ActionResult Create()
+        //{
+        //    return RedirectToAction("index", "Blog", null);
+        //    ViewBag.PostId = new SelectList(db.Posts, "ID", "Title");
+        //    return View();
+        //}
 
         // POST: Comments/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 

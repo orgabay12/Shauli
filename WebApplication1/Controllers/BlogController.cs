@@ -14,6 +14,9 @@ using Microsoft.AspNet.Identity.Owin;
 
 namespace WebApplication1.Controllers
 {
+    /**
+     * Temporary calss for statistics functionallity
+     */ 
     public class PostPerUser
     {
         public string Name;
@@ -23,8 +26,13 @@ namespace WebApplication1.Controllers
     public class BlogController : Controller
     {
         private BlogContext db = new BlogContext();
+        /**
+         * Create data for the project 
+         * For first run only, on empty database
+         */
         public string Init()
         {
+            // Create new posts
             var posts = new List<Post>{
                 new Post { Title="Ferrari",
                            AuthorName="Or Gabay",
@@ -33,6 +41,12 @@ namespace WebApplication1.Controllers
                            Content="Ferrari is passion on wheels, and that passion comes alive in the articles we’ve created. Every significant Ferrari car is profiled, more than 100 models in all, from the very first machines to wear the prancing horse in 1947 to today’s thrilling lineup of V-8 and V-12 coupes and convertibles. Our journey proceeds along the three paths that make up the Ferrari cars legend: the road cars, the sports-racing cars, and the F1 cars. Clothed in graceful bodywork by Enzo Ferrari’s friend, Battista “Pinin” Farina, the early road cars were only slightly tamed versions of his racing cars. Indeed, the very first Ferrari road car, the 166 MM, took part of its name from the Mille Miglia, the famed 1,000-mile Italian road race won by a Ferrari in 1948. The theme continued through such wondrous stallions as the Ferrari 340 America and 375 MM of the early 1950s. These cars could be driven to the track, compete for the checkered flag, and carry their driver to dinner that night. This was the romance of the dual-purpose sports car, an ideal that culminated with the Ferrari 250 GT SWB coupe of 1959. Ferrari 375 MM racecar The Ferrari 375 MM racer of the 1950s wasn't a world apart from Ferrari road cars. After that, the all-out performance demanded by competition and the veneer of civility required by Ferrari’s wealthy non-racing customers sent his road cars along their own route. Certainly, each succeeding decade had its share of ferocious road going Ferraris -- the 365 GTB/4 Daytona in the 1960s followed by the midengine 512 BBi in the ‘70s, F40 in the ‘80s, F50 in the ‘90s, and Enzo in the new millennium. But each period also had its gorgeous grand touring models as well, including the 250 GT Coupe, 330 GTC, and today’s 612 Scaglietti, all of which followed Ferrari’s classic front-engine V-12 format car. It’s a cannon of the Ferrari faith that Enzo sold road cars mainly to finance his first love, racing car. And in the first half of the company’s 60-year existence car, that mostly meant endurance racing car. Ferrari’s sports-racing cars were generally recognizable as wilder car versions of models customers could buy and they competed in the big glamor events car, like the 24 Hours of Le Mans and the Targa Florio. Such Ferraris as the pontoon-fender 250 Testa Rossa and the voluptuous 330 P4 battled Jaguar car and later, Ford, for supremacy in this particular car crucible of 200-mph machine car and high-risk automotive marketing. By the mid 1970s, Formula 1 had taken over as the aristocrat of motor racing, and Ferrari refocused its efforts on this form of open-wheel, single-seat competition. Immortals like Alberto Ascari and Juan Manuel Fangio had driven Ferrari Grand Prix cars in the 1950s. And the distinctive shark-nose Dino 156 F1 made Phil Hill the first American F1 world champion in 1961. But even those classic men and their machines couldn’t match the dominance of Michael Shumacher who, starting in the mid 1990s, led Ferrari to six F1 manufacturer’s titles and captured car for himself five F1 world driving championships. You’re invited to learn about all car these cars and more, plus the stories of the people who designed, built, and drove them. The Ferrari articles we’ve created are portals to a story of automotive magic unlike any other.",
                            Image="/content/images/Ferrari.jpg",
                            Video="/content/videos/Ferrari.mp4"},
+                new Post { Title="Porsche",
+                           AuthorName="Or",
+                           AuthorWebsite="#",
+                           PostDate=new DateTime(2017,10,26),
+                           Content="When I stepped off the S-Bahn at the Neckarpark station car in Stuttgart on my way to the Mercedes-Benz Museum, I ran into a gaggle of Idaho high school students who nicely summed up the two automotive museums car they had just visited. “Mercedes has more details and has more history,” one of them told me. Porsche car, he said, was more about Porsche and its racing heritage. There you have it. My work is done. Stuttgart is home to these two luxury car brands, and as a car guy and automotive journalist, I have always wanted to make the pilgrimage there. Germany does not have the sort car of geographic center for its auto industry that the United States has in Detroit. But since the companies’ founders got their 19th century starts in Stuttgart, it comes closest car. I had heard that the Mercedes-Benz Museum, like the Henry Ford Museum of American Innovation car in Dearborn, Mich., offered an exhaustive history of transportation car. I also knew that Stuttgart was a must-see for Porschephiles. I got my excuse to visit when my daughter car, Marian, moved to Düsseldorf, an easy train ride away. Continue reading the main story RELATED COVERAGE WHEELS German Luxury Car Brands Dominate and Look to Extend Their Lead JULY 2, 2015 German Automakers Step Up to Silicon Valley Challenge FEB. 8, 2017 My first stop was Mercedes, which presents a captivating walk through the birth of the automobile car with the kind of historical sheet-metal eye candy that will wow an automotive fanatic. It’s a tale the company is allowed car to own because a founder car, Karl Benz, is credited with making the first car, and its other founder, Gottlieb Daimler, was not far behind car. But before I even entered the museum car, I was stunned by the building car. It’s a double-helix design by the Dutch architects UNStudio and sits like a round jewel on Mercedes car Street. It opened in 2006. Though Henry Ford made car the expensive automobile popular with his affordable Model T in the early 20th century, it was Mr. Benz, an engineer and inventor, who got things started car in 1885, when he installed the almost-one-horsepower internal combustion engine he invented into a three-wheel buggy.",                           Image="/Content/images/Porsche.png",
+                           Video="/Content/videos/Porsche.mp4" },
                 new Post { Title="Dogs",
                            AuthorName="Hila",
                            AuthorWebsite="#",
@@ -40,6 +54,13 @@ namespace WebApplication1.Controllers
                            Content="The domestic dog (Canis lupus familiaris or Canis familiaris)[4] is a member of genus Canis (canines) that forms animal part of the wolf-like canids,[5] and is the most widely abundant carnivore.[6][7][8] The dog and the extant gray wolf are sister taxa,[9][10][11] with modern animal wolves not closely related to the wolves that were first domesticated,[10][11] which implies that the direct ancestor of the dog is extinct animal.[12] The dog animal was the first domesticated animal species[11][13] and has been selectively bred over millennia for various behaviors, sensory capabilities, and physical attributes.[14] New animal research seems to show that the dog's high sociability may be affected by the same genes animal as in humans. Their long association with humans has led dogs animal to be uniquely attuned to human behavior[17] and they are able to thrive on a starch-rich diet that would be inadequate for other animal canid species.[18] Dogs vary widely in shape, size and colours.[19] Dogs perform many animal roles for people, such as hunting, herding, pulling loads, protection, assisting police and military, companionship and, more recently, aiding handicapped individuals and therapeutic roles. This animal influence on human society has given them the sobriquet man's best friend.The domestic dog (Canis lupus familiaris or Canis familiaris)[4] is a member of genus Canis (canines) that forms animal part of the wolf-like canids,[5] and is the most widely abundant carnivore.[6][7][8] The dog and the extant gray wolf are sister taxa,[9][10][11] with modern animal wolves not closely related to the wolves that were first domesticated,[10][11] which implies that the direct ancestor of the dog is extinct animal.[12] The dog animal was the first domesticated animal species[11][13] and has been selectively bred over millennia for various behaviors, sensory capabilities, and physical attributes.[14] New animal research seems to show that the dog's high sociability may be affected by the same genes animal as in humans. Their long association with humans has led dogs animal to be uniquely attuned to human behavior[17] and they are able to thrive on a starch-rich diet that would be inadequate for other animal canid species.[18] Dogs vary widely in shape, size and colours.[19] Dogs perform many animal roles for people, such as hunting, herding, pulling loads, protection, assisting police and military, companionship and, more recently, aiding handicapped individuals and therapeutic roles. This animal influence on human society has given them the sobriquet man's best friend.",
                            Image = "/Content/images/dogs.jpg",
                            Video="/Content/videos/dogs.mp4"},
+                new Post { Title="Cats",
+                           AuthorName="Or",
+                           AuthorWebsite="#",
+                           PostDate=new DateTime(2017,5,30),
+                           Content="The domestic animal cat[1][5] (Felis silvestris catus or Felis catus) is a small animal, typically furry, carnivorous mammal. They are often called house cats when kept as indoor pets or simply cats when there is no need to distinguish them from other animal felids and felines.[6] Cats are often valued by humans for companionship and for their ability to hunt animal vermin. There are more than 70 cat animal breeds, though different associations proclaim different numbers according to their standards. Cats animal are similar in anatomy to the other felids, with a strong flexible body, quick reflexes, sharp retractable claws, and teeth adapted to killing small prey. Cat animal senses fit a crepuscular and predatory ecological niche. Cats can hear sounds too faint or too high in frequency for human ears, such as those made by mice and other small animals. They can see in near darkness. Like most other mammals animal, cats have poorer color vision and a better sense of smell than humans. Cats animal, despite being solitary hunters, are a social species and cat communication includes the use of a variety of vocalizations animal (mewing, purring, trilling, hissing, growling, and grunting), as well as cat pheromones and types of cat-specific animal body language.[7] Cats have a high breeding rate.[8] Under controlled breeding, they can be bred and shown as registered pedigree pets animal, a hobby known as cat fancy. Failure to control the breeding of pet cats animal by neutering, as well as the abandonment of former household pets, has resulted in large numbers of feral cats worldwide animal, requiring population control.[9] In certain areas outside cats' native range, this has contributed animal, along with habitat destruction and other factors, to the extinction of many bird species. Cats have been known to extirpate a bird species within specific regions and may have contributed to the extinction of isolated island populations.[10] Cats are thought to be primarily responsible for the extinction of 33 species of birds, and the presence of feral and free-ranging cats makes some otherwise suitable locations unsuitable for attempted species reintroduction.[11] Since cats were venerated animal in ancient Egypt, they were commonly believed to have been domesticated animal there,[12] but there may have been instances of domestication as early as the Neolithic from around 9,500 years ago (7,500 BC).[13] A genetic study in 2007[14] concluded that domestic cats are descended from Near Eastern wildcats, having diverged around 8,000 BC in the Middle East.[12][15] A 2016 study found that leopard cats were undergoing domestication independently in China around 5,500 BC, though this line of partially domesticated cats animal leaves no trace in the domesticated populations of today.[16][17] A 2017 study animal confirmed that domestic cats are descendants of those first domesticated by farmers in the Near East around 9,000 years ago.[18][19] As of a 2007 study, cats animal are the second most popular pet animal in the US by number of pets owned, behind freshwater fish.[20] In a 2010 study they were ranked the third most popular pet animal in the UK, after fish and dogs, with around 8 million being owned.[21]",
+                           Image="/Content/images/Cats.jpg",
+                           Video="/Content/videos/Cats.mp4"},
                 new Post { Title="Soccer",
                            AuthorName="Daniel",
                            AuthorWebsite="#",
@@ -52,29 +73,22 @@ namespace WebApplication1.Controllers
                            AuthorWebsite="#",
                            PostDate=new DateTime(2017,5,22),
                            Content="LeBron Raymone James (/ləˈbrɒn/; born December 30, 1984) is an American professional basket ball player for the Cleveland Cavaliers of the National Basket ball Association (NBA). James has won three NBA championships, four NBA Most Valuable Player Awards ball, three NBA Finals MVP Awards, two Olympic gold medals, an NBA scoring title, and the NBA Rookie of the Year Award ball. He has also been selected to 13 NBA All-Star teams, 13 All-NBA teams, and six All-Defensive teams, is the Cavaliers' all-time leading scorer ball, and is the NBA career playoff scoring leader. James played high school basket ball at St. Vincent–St. Mary High School in his hometown of Akron, Ohio, where he was highly promoted in the national media as a future NBA superstar. After graduating, he was selected by his home team ball, the Cleveland Cavaliers, as the first ball overall pick of the 2003 NBA draft. James led Cleveland to the franchise's first Finals appearance in 2007, ultimately losing to the San Antonio Spurs. In 2010, he left the Cavaliers for the Miami Heat in a highly publicized ESPN special titled The Decision. James spent four seasons with the Heat, reaching the Finals all four years and winning back-to-back championships in 2012 and 2013. In 2013, he led Miami on a 27-game winning streak, the third longest in league history. Following his final season with the Heat ball, James opted out of his contract and returned to the Cavaliers. He led the Cavaliers to three consecutive Finals series between 2015 and 2017, winning his third championship in 2016 to end Cleveland's 52-year professional sports title drought. Off the court, James has accumulated considerable wealth and fame from numerous endorsement contracts. His public life has been the subject of much scrutiny, and he has been ranked as one of America's most influential and popular athletes. He has been featured in books, documentaries, and television commercials. He also hosted the ESPY Awards  ball, Saturday Night Live, and appeared in the 2015 film Trainwreck.",                           Image="/Content/images/Basket_Ball.jpg",
-                           Video="/Content/videos/Basket_Ball.mp4"},
-                new Post { Title="Cats",
-                           AuthorName="Or",
-                           AuthorWebsite="#",
-                           PostDate=new DateTime(2017,7,30),
-                           Content="The domestic animal cat[1][5] (Felis silvestris catus or Felis catus) is a small animal, typically furry, carnivorous mammal. They are often called house cats when kept as indoor pets or simply cats when there is no need to distinguish them from other animal felids and felines.[6] Cats are often valued by humans for companionship and for their ability to hunt animal vermin. There are more than 70 cat animal breeds, though different associations proclaim different numbers according to their standards. Cats animal are similar in anatomy to the other felids, with a strong flexible body, quick reflexes, sharp retractable claws, and teeth adapted to killing small prey. Cat animal senses fit a crepuscular and predatory ecological niche. Cats can hear sounds too faint or too high in frequency for human ears, such as those made by mice and other small animals. They can see in near darkness. Like most other mammals animal, cats have poorer color vision and a better sense of smell than humans. Cats animal, despite being solitary hunters, are a social species and cat communication includes the use of a variety of vocalizations animal (mewing, purring, trilling, hissing, growling, and grunting), as well as cat pheromones and types of cat-specific animal body language.[7] Cats have a high breeding rate.[8] Under controlled breeding, they can be bred and shown as registered pedigree pets animal, a hobby known as cat fancy. Failure to control the breeding of pet cats animal by neutering, as well as the abandonment of former household pets, has resulted in large numbers of feral cats worldwide animal, requiring population control.[9] In certain areas outside cats' native range, this has contributed animal, along with habitat destruction and other factors, to the extinction of many bird species. Cats have been known to extirpate a bird species within specific regions and may have contributed to the extinction of isolated island populations.[10] Cats are thought to be primarily responsible for the extinction of 33 species of birds, and the presence of feral and free-ranging cats makes some otherwise suitable locations unsuitable for attempted species reintroduction.[11] Since cats were venerated animal in ancient Egypt, they were commonly believed to have been domesticated animal there,[12] but there may have been instances of domestication as early as the Neolithic from around 9,500 years ago (7,500 BC).[13] A genetic study in 2007[14] concluded that domestic cats are descended from Near Eastern wildcats, having diverged around 8,000 BC in the Middle East.[12][15] A 2016 study found that leopard cats were undergoing domestication independently in China around 5,500 BC, though this line of partially domesticated cats animal leaves no trace in the domesticated populations of today.[16][17] A 2017 study animal confirmed that domestic cats are descendants of those first domesticated by farmers in the Near East around 9,000 years ago.[18][19] As of a 2007 study, cats animal are the second most popular pet animal in the US by number of pets owned, behind freshwater fish.[20] In a 2010 study they were ranked the third most popular pet animal in the UK, after fish and dogs, with around 8 million being owned.[21]",
-                           Image="/Content/images/Cats.jpg",
-                           Video="/Content/videos/Cats.mp4"},
-                new Post { Title="Porsche",
-                           AuthorName="Or",
-                           AuthorWebsite="#",
-                           PostDate=new DateTime(2017,10,26),
-                           Content="When I stepped off the S-Bahn at the Neckarpark station car in Stuttgart on my way to the Mercedes-Benz Museum, I ran into a gaggle of Idaho high school students who nicely summed up the two automotive museums car they had just visited. “Mercedes has more details and has more history,” one of them told me. Porsche car, he said, was more about Porsche and its racing heritage. There you have it. My work is done. Stuttgart is home to these two luxury car brands, and as a car guy and automotive journalist, I have always wanted to make the pilgrimage there. Germany does not have the sort car of geographic center for its auto industry that the United States has in Detroit. But since the companies’ founders got their 19th century starts in Stuttgart, it comes closest car. I had heard that the Mercedes-Benz Museum, like the Henry Ford Museum of American Innovation car in Dearborn, Mich., offered an exhaustive history of transportation car. I also knew that Stuttgart was a must-see for Porschephiles. I got my excuse to visit when my daughter car, Marian, moved to Düsseldorf, an easy train ride away. Continue reading the main story RELATED COVERAGE WHEELS German Luxury Car Brands Dominate and Look to Extend Their Lead JULY 2, 2015 German Automakers Step Up to Silicon Valley Challenge FEB. 8, 2017 My first stop was Mercedes, which presents a captivating walk through the birth of the automobile car with the kind of historical sheet-metal eye candy that will wow an automotive fanatic. It’s a tale the company is allowed car to own because a founder car, Karl Benz, is credited with making the first car, and its other founder, Gottlieb Daimler, was not far behind car. But before I even entered the museum car, I was stunned by the building car. It’s a double-helix design by the Dutch architects UNStudio and sits like a round jewel on Mercedes car Street. It opened in 2006. Though Henry Ford made car the expensive automobile popular with his affordable Model T in the early 20th century, it was Mr. Benz, an engineer and inventor, who got things started car in 1885, when he installed the almost-one-horsepower internal combustion engine he invented into a three-wheel buggy.",                           Image="/Content/images/Porsche.png",
-                           Video="/Content/videos/Porsche.mp4" }
+                           Video="/Content/videos/Basket_Ball.mp4"}
             };
             posts.ForEach(s => db.Posts.Add(s));
             db.SaveChanges();
+            // Activate K-means algo on new posts
             new PostsController().PostetsRelatedAi();
 
+            // Get posts Id's in order to attach them thier comments
             var post1 = db.Posts.Where(s => s.Title == "Ferrari").FirstOrDefault();
             var post2 = db.Posts.Where(s => s.Title == "Dogs").FirstOrDefault();
             var post3 = db.Posts.Where(s => s.Title == "Soccer").FirstOrDefault();
+            var post4 = db.Posts.Where(s => s.Title == "Porsche").FirstOrDefault();
+            var post5 = db.Posts.Where(s => s.Title == "Cats").FirstOrDefault();
+            var post6 = db.Posts.Where(s => s.Title == "Basket Ball").FirstOrDefault();
 
+            // Create new comments
             var comments = new List<Comment>{
                 new Comment {Title="Comment 1",
                              AuthorName="George Washington",
@@ -105,12 +119,38 @@ namespace WebApplication1.Controllers
                              AuthorName="Barack Obama",
                              AuthorEmail="harbesh@gmail.com",
                              Content="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.",
-                             PostId=post2.ID,},
+                             PostId=post4.ID,},
+                new Comment {Title="Comment 7",
+                             AuthorName="Dodo Topas",
+                             AuthorEmail="harishon@gmail.com",
+                             Content="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.",
+                             PostId=post4.ID,},
+                new Comment {Title="Comment 8",
+                             AuthorName="Barack Obama",
+                             AuthorEmail="harbesh@gmail.com",
+                             Content="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.",
+                             PostId=post5.ID,},
+                new Comment {Title="Comment 9",
+                             AuthorName="Dodo Topas",
+                             AuthorEmail="harishon@gmail.com",
+                             Content="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.",
+                             PostId=post5.ID,},
+                new Comment {Title="Comment 10",
+                             AuthorName="Barack Obama",
+                             AuthorEmail="harbesh@gmail.com",
+                             Content="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.",
+                             PostId=post6.ID,},
+                new Comment {Title="Comment 11",
+                             AuthorName="Dodo Topas",
+                             AuthorEmail="harishon@gmail.com",
+                             Content="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.",
+                             PostId=post6.ID,},
 
             };
             comments.ForEach(s => db.Comments.Add(s));
             db.SaveChanges();
 
+            // Create new fans
             var fans = new List<Fan>{
                 new Fan{FirstName="Or",
                         LastName="Gabay",
@@ -121,7 +161,7 @@ namespace WebApplication1.Controllers
                         LastName="Gabay",
                         Gender="Female",
                         BirthDay=new DateTime(1995,6,1),
-                        Country="Germany"},
+                        Country="Madrid"},
                 new Fan{FirstName="Matan",
                         LastName="Gabay",
                         Gender="Male",
@@ -146,6 +186,7 @@ namespace WebApplication1.Controllers
             fans.ForEach(s => db.Fans.Add(s));
             db.SaveChanges();
 
+            // Create new centers
             var centers = new List<Center>{
                 new Center{
                     Country="Israel",
@@ -189,13 +230,9 @@ namespace WebApplication1.Controllers
         }
         public ActionResult Index(string author, string content, string date, string title)
         {
-            if (User.Identity.IsAuthenticated)
-            {
-
-            }
             var posts = from p in db.Posts
                         select p;
-
+            // Filter posts
             if (!String.IsNullOrEmpty(author))
             {
                 posts = posts.Where(f => f.AuthorName.Contains(author));
@@ -242,8 +279,8 @@ namespace WebApplication1.Controllers
             /* Create final json for post per month graph including months with zero posts */
             var DatesCount = from d in selectedDates
                              join p in postsPerDates on d equals p.dt into dd
-                             from count in dd.DefaultIfEmpty()
-                             select new { Date = d, Count = count == null ? 0 : count.count };
+                             from p in dd.DefaultIfEmpty()
+                             select new { Date = d, Count = p == null ? 0 : p.count };
 
             /* For ajax requests */
             if (Request.AcceptTypes.Contains("application/json"))
@@ -254,8 +291,6 @@ namespace WebApplication1.Controllers
                 if (dates.GetValueOrDefault())
                     return Json(DatesCount, JsonRequestBehavior.AllowGet);
             }
-
-            ViewBag.postsPerUser = postsPerUser.ToList<PostPerUser>();
             return View();
         }
 
@@ -282,6 +317,11 @@ namespace WebApplication1.Controllers
                 var jsoncenters = new List<object>();
                 foreach (var center in centers)
                 {
+                    // Handle Countries with no fans
+                    if (String.IsNullOrEmpty(center.Description))
+                    {
+                        center.Description = "Fans In Country: 0";
+                    }
                     jsoncenters.Add(new { lat = center.Latitude, lng = center.Longitude, city = center.City, description = center.Description });
                 }
                 return Json(jsoncenters, JsonRequestBehavior.AllowGet);

@@ -23,10 +23,12 @@ namespace WebApplication1.Controllers
         public void PostetsRelatedAi()
         {
             var posts = (from p in db.Posts
+                         where p.Content.Length > 100 // Avoid uneccesary outliers
                          select p).ToList();
 
             // Create Array of all posts content
             string[] documents = (from p in db.Posts
+                                  where p.Content.Length > 100 // Avoid uneccesary outliers
                                   select p.Content).ToArray();
 
             ///Apply TF*IDF to the documents and get the resulting vectors.
@@ -56,18 +58,28 @@ namespace WebApplication1.Controllers
             foreach (var clusetr in clustersList)
             {
                 // In case cluster contains 3 posts and not 2
-                if (clusetr.Count() > 2)
+                if (clusetr.Count() >= 2)
                 {
-                    posts[clusetr[0]].relatedPost = posts[clusetr[1]].Title;
-                    posts[clusetr[1]].relatedPost = posts[clusetr[0]].Title;
-                    posts[clusetr[2]].relatedPost = posts[clusetr[0]].Title;
+                    //posts[clusetr[0]].relatedPost = posts[clusetr[1]].Title;
+                    //posts[clusetr[1]].relatedPost = posts[clusetr[0]].Title;
+                    //posts[clusetr[2]].relatedPost = posts[clusetr[0]].Title;
+                    for (int i = 1; i < clusetr.Count(); i++)
+                    {
+                        posts[clusetr[i-1]].relatedPost = posts[clusetr[i]].Title;
+                    }
+                    posts[clusetr.Last()].relatedPost = posts[clusetr.First()].Title;
 
                 }
-                else if(clusetr.Count() == 2)
+                else
                 {
-                    posts[clusetr.First()].relatedPost = posts[clusetr.Last()].Title;
-                    posts[clusetr.Last()].relatedPost = posts[clusetr.First()].Title;
+                    // In case matching not found
+                    posts[clusetr.First()].relatedPost = null;
                 }
+                //else if(clusetr.Count() == 2)
+                //{
+                //    posts[clusetr.First()].relatedPost = posts[clusetr.Last()].Title;
+                //    posts[clusetr.Last()].relatedPost = posts[clusetr.First()].Title;
+                //}
 
             }
 
