@@ -229,6 +229,15 @@ aside section {
     margin:5px;
 }
 
+/* Prettify admin panel side */
+ul.no-float, ul.no-float li {
+    float: none !important;
+}
+
+    ul.no-float{
+        margin: 10px 10px 0 15px
+    }
+
 /*------------------------------
 =BLOG POST
 ------------------------------*/
@@ -428,10 +437,23 @@ footer {
     margin-top:0px;
 }
 
-#maph3{
+#map-h3{
     font-size:22px;
 }
 
+#map-container {
+    margin-bottom:20px;
+}
+
+#map {
+    width: 50%;
+    height: 300px;
+    display: inline-block;
+}
+
+#details {
+    float: right
+}
 
 /*------------------------------
 =Statictics PAGE

@@ -34,7 +34,7 @@ $(document).ready(function () {
 
 /**
 * Weather web service handlers
-* First request for the city key
+* First request - get the city key
 */
 $('#weatherWrap button').click(function(){
     var city = $('#cities').val();
@@ -46,7 +46,7 @@ $('#weatherWrap button').click(function(){
     }, "json");
 });
 /**
- * Second request for the weather
+ * Second request - get the weather
  * @param {any} cityKey - from the first request
  */
 function getWeather(cityKey) {
@@ -59,6 +59,7 @@ function getWeather(cityKey) {
 }
 
 /* Posts Create and Update files validation */
+// Enable/Disable fileds according to checkboxes
 $('#IsImage').change(function () {
     if ($(this).is(":checked")) {
         $("#Image").prop('disabled', false);
@@ -113,41 +114,49 @@ if ($(location).attr('pathname') === '/Blog/About') {
         context.drawImage(img, 0, 0);
     }
     img.src = "/Content/images/shuliabout.jpg";
+}
 
-    /* Google maps callback*/
-    function initMap() {
-        var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 3,
-            center: new google.maps.LatLng(40.717245, 15.907102)
-        });
-        $.get("/Blog/About", function (centers, status, xhr) {
-            for (var i = 0; i < centers.length; i++) {
-                var label = "<h5>" + centers[i].city + "</h5>" + "<h6>" + centers[i].description + "</h6>"
-                addMarker(centers[i].lat, centers[i].lng, label, map)
-            };
-        }, "json");
+/* Google maps callback*/
+function initMap() {
+    // Verify the current page is the about page
+    if ($(location).attr('pathname') !== '/Blog/About') {
+        return;
     }
-    function addMarker(lat, lng, label, map) {
-        var location = new google.maps.LatLng(lat, lng);
-        var marker = new google.maps.Marker({
-            position: location,
-            map: map
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 3,
+        center: new google.maps.LatLng(40.717245, 15.907102)
+    });
+    $.get("/Blog/About", function (centers, status, xhr) {
+        for (var i = 0; i < centers.length; i++) {
+            var label = "<h5>" + centers[i].city + "</h5>" + "<h6>" + centers[i].description + "</h6>"
+            addMarker(centers[i].lat, centers[i].lng, label, map)
+        };
+    }, "json");
+}
+
+/* Google mpas add marker on map function */
+function addMarker(lat, lng, label, map) {
+    var location = new google.maps.LatLng(lat, lng);
+    var marker = new google.maps.Marker({
+        position: location,
+        map: map
+    });
+    // Add info window to marker
+    google.maps.event.addListener(marker, 'click', function () {
+        infowindow = new google.maps.InfoWindow({
+            content: label,
         });
-        google.maps.event.addListener(marker, 'click', function () {
-            infowindow = new google.maps.InfoWindow({
-                content: label,
-            });
-            infowindow.open(map, marker);
-        });
-    }
+        infowindow.open(map, marker);
+    });
 }
 
 /* Statistics page functionallity */
 if ($(location).attr('pathname') === '/Blog/Statistics') {
     $(document).ready(function () {
-        /* Posts per user pie initialization */
+        // Patch for aside css disorder 
         $('aside').css('display', 'inline-block');
 
+        /* Posts per user pie initialization */
         var canvas = document.querySelector("canvas"),
             context = canvas.getContext("2d");
 
@@ -200,7 +209,7 @@ if ($(location).attr('pathname') === '/Blog/Statistics') {
         });
 
 
-        /* Posts per data bar-chart initialization */
+        /* Posts per date bar-chart initialization */
         var svg = d3.select("svg"),
             margin = { top: 20, right: 20, bottom: 30, left: 40 },
             width = +svg.attr("width") - margin.left - margin.right,

@@ -19,6 +19,7 @@ namespace WebApplication1.Controllers
         [AllowAnonymous]
         public ActionResult Index(string firstName, string country, string gender)
         {
+            /* Create gender list from the genders in th db */
             var GenderList = new List<string>();
 
             var GenderQry = from d in db.Fans
@@ -26,11 +27,14 @@ namespace WebApplication1.Controllers
                            select d.Gender;
 
             GenderList.AddRange(GenderQry.Distinct());
+            // Put in viewbag in order to use as a dropdownn list in the view (razor)
             ViewBag.gender = new SelectList(GenderList);
 
+            // Get all fans
             var fans = from f in db.Fans
                          select f;
 
+            // Filter fans
             if (!String.IsNullOrEmpty(firstName))
             {
                 fans = fans.Where(f => f.FirstName.Contains(firstName));

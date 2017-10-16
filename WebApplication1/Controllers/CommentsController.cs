@@ -17,6 +17,7 @@ namespace WebApplication1.Controllers
 
         // GET: Comments/1
         [AllowAnonymous]
+        // The id parameter is PostID related to the comment
         public ActionResult Index(int? id, string author)
         {
             if (id == null)
@@ -25,6 +26,7 @@ namespace WebApplication1.Controllers
             }
             var comments = db.Comments.Where(c => c.PostId == id);
 
+            // Filter comments
             if (!String.IsNullOrEmpty(author))
             {
                 comments = comments.Where(c => c.AuthorName.Contains(author));
@@ -48,6 +50,7 @@ namespace WebApplication1.Controllers
             return View(comment);
         }
 
+        // Create comments is only from the blog itself
         // GET: Comments/Create
         //public ActionResult Create()
         //{
@@ -62,14 +65,18 @@ namespace WebApplication1.Controllers
         [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
+        // The PostID parameter is the PostID related to the comment
         public ActionResult Create([Bind(Include = "ID,Title,AuthorName,AuthorEmail,Content")] Comment comment, int PostId)
         {
             if (ModelState.IsValid)
             {
+                // Attach comment to it's post
                 comment.PostId = PostId;
+                // For redirection
                 var postTitle = db.Posts.Find(PostId).Title;
                 db.Comments.Add(comment);
                 db.SaveChanges();
+                // Redirect to the post
                 return RedirectToAction("Index", "Blog", new {title= postTitle});
             }
 
@@ -98,14 +105,17 @@ namespace WebApplication1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        // The PostID parameter is the PostID related to the comment
         public ActionResult Edit([Bind(Include = "ID,Title,AuthorName,AuthorEmail,Content,PostId")] Comment comment, int PostId)
         {
             if (ModelState.IsValid)
             {
+                // Attach comment to it's post
                 comment.PostId = PostId;
                 comment.Post = db.Posts.Find(PostId);
                 db.Entry(comment).State = EntityState.Modified;
                 db.SaveChanges();
+                // Redirect to post's comments index page
                 return RedirectToAction("Index", new {id=comment.PostId });
             }
             ViewBag.PostId = new SelectList(db.Posts, "ID", "Title", comment.PostId);
@@ -135,6 +145,7 @@ namespace WebApplication1.Controllers
             Comment comment = db.Comments.Find(id);
             db.Comments.Remove(comment);
             db.SaveChanges();
+            // Redirect to post's comments index page
             return RedirectToAction("Index", new { id = comment.PostId });
         }
 

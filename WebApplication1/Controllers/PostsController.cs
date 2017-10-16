@@ -22,16 +22,17 @@ namespace WebApplication1.Controllers
          */
         public void PostetsRelatedAi()
         {
+            // Get all posts from db
             var posts = (from p in db.Posts
-                         where p.Content.Length > 100 // Avoid uneccesary outliers
+                         where p.Content.Length > 50 // Avoid uneccesary outliers
                          select p).ToList();
 
             // Create Array of all posts content
             string[] documents = (from p in db.Posts
-                                  where p.Content.Length > 100 // Avoid uneccesary outliers
+                                  where p.Content.Length > 50 // Avoid uneccesary outliers
                                   select p.Content).ToArray();
 
-            ///Apply TF*IDF to the documents and get the resulting vectors.
+            ///Apply TF*IDF on the documents and get the resulting vectors.
             double[][] inputs = TFIDFEX.TFIDF.Transform(documents);
             inputs = TFIDFEX.TFIDF.Normalize(inputs);
 
@@ -44,7 +45,7 @@ namespace WebApplication1.Controllers
             int[] labels = clusters.Decide(inputs);
 
 
-            // Create list with clusters couples
+            // Create more handy list of clusters and their vectors
             var clustersList = new List<List<int>>();
             for (int j = 0; j < Convert.ToInt32(posts.Count() / 2); j++)
             {
@@ -54,32 +55,27 @@ namespace WebApplication1.Controllers
                                        .ToList());
             }
 
-            // Adjust all posts and thier related by clustering results
+            // Adjust all posts and thier related according to clustering results
             foreach (var clusetr in clustersList)
             {
-                // In case cluster contains 3 posts and not 2
+                // Handle clusters with 2 and more vectors
                 if (clusetr.Count() >= 2)
                 {
-                    //posts[clusetr[0]].relatedPost = posts[clusetr[1]].Title;
-                    //posts[clusetr[1]].relatedPost = posts[clusetr[0]].Title;
-                    //posts[clusetr[2]].relatedPost = posts[clusetr[0]].Title;
                     for (int i = 1; i < clusetr.Count(); i++)
                     {
+                        // Attach each post in the cluster to it's neighbor
                         posts[clusetr[i-1]].relatedPost = posts[clusetr[i]].Title;
                     }
+                    // Attach the last post to the first one in the list
                     posts[clusetr.Last()].relatedPost = posts[clusetr.First()].Title;
 
                 }
-                else
+                // Handle clusters with only one vector
+                else if(clusetr.Count() > 0)
                 {
                     // In case matching not found
                     posts[clusetr.First()].relatedPost = null;
                 }
-                //else if(clusetr.Count() == 2)
-                //{
-                //    posts[clusetr.First()].relatedPost = posts[clusetr.Last()].Title;
-                //    posts[clusetr.Last()].relatedPost = posts[clusetr.First()].Title;
-                //}
 
             }
 
@@ -130,21 +126,30 @@ namespace WebApplication1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        // Get also stream of image file and video file, IsImage and IsVideo are the frontend checkboxes values
         public ActionResult Create([Bind(Include = "ID,Title,AuthorName,AuthorWebsite,Content")] Post post, HttpPostedFileBase Image, bool IsImage, HttpPostedFileBase Video, bool IsVideo)
         {
             if (ModelState.IsValid)
             {
+                // In case image is attached
                 if (Image != null && IsImage)
                 {
+                    // Generate unique name
                     var imgName = DateTime.Now.ToString("yyyyMMddHHmmssfff_") + Image.FileName.Replace(" ", "_");
+                    // Save the image file in the server
                     Image.SaveAs(HttpContext.Server.MapPath("/Content/images/") + imgName);
+                    // Attach image path to the post
                     post.Image = String.Format("/Content/images/{0}", imgName);
                 }
 
+                // In case video is attached
                 if (Video != null && IsVideo)
                 {
+                    // Generate unique name
                     var vidname = DateTime.Now.ToString("yyyyMMddHHmmssfff_") + Video.FileName.Replace(" ", "_");
+                    // Save the video file in the server
                     Video.SaveAs(HttpContext.Server.MapPath("/Content/videos/") + vidname);
+                    // Attach video path to the post
                     post.Video = String.Format("/Content/videos/{0}", vidname);
                 }
 
@@ -154,11 +159,12 @@ namespace WebApplication1.Controllers
                 {
                     db.SaveChanges();
                 }
-                // Handle post title duplication
+                // Handle post title duplication error
                 catch (DbUpdateException e)
                 {
-                    // Duplicated PK error will include the word unique in it's error massage.
+                    // Duplicated podt title error will include the word unique in it's error massage.
                     if (e.InnerException.InnerException.Message.Contains("unique")){
+                        // Add Error the to model state, this will be presented in the view
                         ModelState.AddModelError("", "Operation Failed, Make sure post title in unique.");
                         return View(post);
                     }
@@ -195,38 +201,57 @@ namespace WebApplication1.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Use old post data values in order to delete image and video files
                 db.Posts.Attach(post);
                 var OldPost = db.Posts.AsNoTracking().FirstOrDefault(me => me.ID == post.ID);
 
                 if (IsImage) //IsImage Checkbox is checked
                 {
+                    // Verify image file exist
                     if (System.IO.File.Exists(HttpContext.Server.MapPath(OldPost.Image)))
                     {
+                        // Delete image file from server
                         System.IO.File.Delete(HttpContext.Server.MapPath(OldPost.Image));
                     }
                     if (Image != null)
                     {
+                        // Generate unique name
                         var imgName = DateTime.Now.ToString("yyyyMMddHHmmssfff_") + Image.FileName.Replace(" ", "_");
+                        // Save the image file in the server
                         Image.SaveAs(HttpContext.Server.MapPath("/Content/images/") + imgName);
+                        // Attach image path to the post
                         post.Image = String.Format("/Content/images/{0}", imgName);
                     }
                 }
-                else{ post.Image = OldPost.Image; } //Stay with old image
-
-                if (IsVideo)
+                // Stay with old image
+                else
                 {
+                    post.Image = OldPost.Image;
+                } 
+
+                if (IsVideo) //IsVideo Checkbox is checked
+                {
+                    // Verify video file exist
                     if (System.IO.File.Exists(HttpContext.Server.MapPath(OldPost.Video)))
                     {
+                        // Delete video file from server
                         System.IO.File.Delete(HttpContext.Server.MapPath(OldPost.Video));
                     }
                     if (Video != null)
                     {
+                        // Generate unique name
                         var vidname = DateTime.Now.ToString("yyyyMMddHHmmssfff_") + Video.FileName.Replace(" ", "_");
+                        // Save the image file in the server
                         Video.SaveAs(HttpContext.Server.MapPath("/Content/videos/") + vidname);
+                        // Attach image path to the post
                         post.Video = String.Format("/Content/videos/{0}", vidname);
                     }
                 }
-                else { post.Video = OldPost.Video; }
+                // Stay with old video
+                else
+                {
+                    post.Video = OldPost.Video;
+                }
 
                 post.PostDate = OldPost.PostDate;
                 db.Entry(post).State = EntityState.Modified;
@@ -234,10 +259,10 @@ namespace WebApplication1.Controllers
                 {
                     db.SaveChanges();
                 }
-                // Handle post title duplication
+                // Handle post title duplication error
                 catch (DbUpdateException e)
                 {
-                    // Duplicated PK error will include the word unique in it's error massage.
+                    // Duplicated title error will include the word unique in it's error massage.
                     if (e.InnerException.InnerException.Message.Contains("unique"))
                     {
                         ModelState.AddModelError("", "Operation Failed, Make sure post title in unique.");

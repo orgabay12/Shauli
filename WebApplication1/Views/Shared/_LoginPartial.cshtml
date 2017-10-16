@@ -5,20 +5,20 @@
     {
     @Html.AntiForgeryToken()
 
-    <ul class="nav navbar-nav navbar-right" style="float:none !important;margin:0 10px 0 15px;">
-        <li style="float:none;">
+    <ul class="nav navbar-nav navbar-right no-float">
+        <li>
             @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
         </li>
-        <li style="float:none !important;">@Html.ActionLink("Register New Admin", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li style="float:none !important;">@Html.ActionLink("Posts", "Index", "Posts")</li>
-        <li style="float:none !important;">@Html.ActionLink("Centers", "Index", "Centers")</li>
-        <li style="float:none !important;"><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+        <li>@Html.ActionLink("Register New Admin", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Posts", "Index", "Posts")</li>
+        <li>@Html.ActionLink("Centers", "Index", "Centers")</li>
+        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
     </ul>
     }
 }
 else
 {
-    <ul class="nav navbar-nav navbar-right" style="float:none !important;margin:10px 10px 0 15px;">
-        <li style="float:none !important;">@Html.ActionLink("Admin Login", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    <ul class="nav navbar-nav navbar-right no-float">
+        <li>@Html.ActionLink("Admin Login", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     </ul>
 }

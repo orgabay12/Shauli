@@ -14,13 +14,13 @@
     </canvas>
 </section>
 
-<h3 id="maph3">Sahuli Centers Locations</h3>
-<div style="margin-bottom:20px;">
-    <div id="map" style="width:50%;height:300px;display:inline-block;">
+<h3 id="map-h3">Sahuli Centers Locations</h3>
+<div id="map-container">
+    <div id="map">
 
     </div>
 
-    <div style="float:right">
+    <div id="details">
         @foreach (var c in Model)
         {
             <p>@c.Country  @c.City <br/> @c.Address  @c.Phone</p>
